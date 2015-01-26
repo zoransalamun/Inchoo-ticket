@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+    Inchoo Ticked Manager Module
+    Author: Zoran Šalamun
+-->
+<config>
+    <modules>
+        <Inchoo_Ticket>
+            <version>1.0.0.0</version>
+        </Inchoo_Ticket>
+    </modules>
+    <global>
+        <models>
+            <inchoo_ticket>
+                <class>Inchoo_Ticket_Model</class>
+                <resourceModel>inchoo_ticket_resource</resourceModel>
+            </inchoo_ticket>
+            <inchoo_ticket_resource>
+                <class>Inchoo_Ticket_Model_Resource</class>
+                <entities>
+                    <ticket>
+                        <table>inchoo_ticket_ticket</table>
+                    </ticket>
+                    <reply>
+                        <table>inchoo_ticket_reply</table>
+                    </reply>
+                </entities>
+            </inchoo_ticket_resource>
+        </models>
+        <helpers>
+            <inchoo_ticket>
+                <class>Inchoo_Ticket_Helper</class>
+            </inchoo_ticket>
+        </helpers>
+        <blocks>
+            <inchoo_ticket>
+                <class>Inchoo_Ticket_Block</class>
+            </inchoo_ticket>
+        </blocks>
+        <resources>
+            <inchoo_ticket_setup>
+                <setup>
+                    <module>Inchoo_Ticket</module>
+                </setup>
+            </inchoo_ticket_setup>
+        </resources>
+        <template>
+            <email>
+                <inchoo_ticket_email_template translate="label" module="inchoo_ticket">
+                    <label>New Ticket</label>
+                    <file>ticket_new.html</file>
+                    <type>html</type>
+                </inchoo_ticket_email_template>
+            </email>
+        </template>
+    </global>
+    <frontend>
+        <routers>
+            <inchoo_ticket>
+                <use>standard</use>
+                <args>
+                    <module>Inchoo_Ticket</module>
+                    <frontName>inchooticket</frontName>
+                </args>
+            </inchoo_ticket>
+        </routers>
+
+        <layout>
+            <updates>
+                <inchoo_ticket>
+                    <file>inchoo/ticket.xml</file>
+                </inchoo_ticket>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <ticket>
+                    <file>inchoo/ticket.xml</file>
+                </ticket>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <!-- Admin kontroler za modul -->
+                    <modules>
+                        <ticket before="Mage_Adminhtml">Inchoo_Ticket_Adminhtml</ticket>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

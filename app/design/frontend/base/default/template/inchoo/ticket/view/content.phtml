@@ -1,0 +1,24 @@
+<?php
+/*
+ * Content for view ticket
+ */
+?>
+<div class="dashboard">
+    <div class="page-title title-buttons" style="position: relative;">
+        <h1><?php echo $this->__('Ticket #').$this->getTicket()->getTicketId(); ?></h1>
+        <?php if($this->getTicket()->getStatus() === 'open') : ?>
+            <button type="button" title="Close ticket" class="button" style="position: absolute;right: 0;top: 0; background: #FF7255;" onclick="window.location='<?php echo $this->getUrl('inchooticket/ticket/close/',array('id'=>$this->getTicket()->getTicketId())) ?>';"><span><span>Close ticket</span></span></button>
+        <?php endif; ?>
+        <?php if($this->getTicket()->getStatus() === 'closed') : ?>
+            <button type="button" title="Open ticket" class="button" style="position: absolute;right: 0;top: 0; background: #AAE871;" onclick="window.location='<?php echo $this->getUrl('inchooticket/ticket/open/',array('id'=>$this->getTicket()->getTicketId())) ?>';"><span><span style="color: #000;">Open ticket</span></span></button>
+        <?php endif; ?>
+    </div>
+    <?php echo $this->getChildHtml('ticket') ?>
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?php if($this->getTicket()->getStatus() === 'open'):?>
+        <?php echo $this->getChildHtml('form') ?>
+    <?php else: ?>
+        <p>Ticket is closed. To reply please open ticket.</p>
+    <?php endif; ?>
+    <?php echo $this->getChildHtml('reply') ?>
+</div>

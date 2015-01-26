@@ -1,0 +1,26 @@
+<?php
+/*
+ * Reply data display
+ */
+?>
+<div class="box-info">
+    <div class="box-head">
+        <h2><?php echo $this->__('Replies'); ?></h2>
+    </div>
+    <?php if($this->getReplies()->count()>0) : ?>
+        <?php foreach($this->getReplies() as $reply) : ?>
+            <?php if($reply->getStatusChange()>0): ?>
+                <div class="product-options" id="product-options-wrapper" style="background: <?php echo $this->getStatusChangeBackground($reply->getStatusChange()); ?>">
+                    <?php echo $this->getUserName($reply->getCustomerId(),$reply->getAdminId()).' '.$this->getStatusChangeText($reply->getStatusChange(),$reply->getCreatedAt()); ?>
+                </div>
+            <?php else: ?>
+                <div class="product-options" id="product-options-wrapper" style="background: #F9FFFC;">
+                    <p style="font-style: italic; font-size: 12px;"><strong>Reply by</strong> <?php echo $this->getUserName($reply->getCustomerId(),$reply->getAdminId()); ?>, <?php echo $reply->getCreatedAt(); ?></p>
+                    <p><?php echo $this->escapeHtml($reply->getMessage()); ?></p>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <?php echo $this->__('This ticket does not have replies yet!'); ?>
+    <?php endif; ?>
+</div>

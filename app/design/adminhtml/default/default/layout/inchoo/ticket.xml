@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout>
+
+    <adminhtml_ticket_reply>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="inchoo_ticket/adminhtml_ticket_reply" name="inchoo_ticket_reply" />
+        </reference>
+    </adminhtml_ticket_reply>
+
+</layout>

@@ -1,0 +1,26 @@
+<?php
+/*
+ * Replies list in admin reply form
+ */
+?>
+<div class="content-header">
+    <h3 class="icon-head head-adminhtml-ticket">Replies and status change</h3>
+</div>
+<?php if($this->getReplies()->count()>0):?>
+    <?php foreach($this->getReplies() as $reply): ?>
+        <?php if($reply->getStatusChange()>0): ?>
+            <div style="margin-bottom: 10px; background: <?php echo $this->getStatusChangeBackground($reply->getStatusChange()); ?>">
+                <div style="padding: 10px;"><?php echo $this->getUserName($reply->getCustomerId(),$reply->getAdminId()).' '.$this->getStatusChangeText($reply->getStatusChange(),$reply->getCreatedAt()); ?></div>
+            </div>
+        <?php else: ?>
+            <div style="margin-bottom: 10px;">
+                <div style="border: 1px solid #d6d6d6; background: #fafafa; padding: 10px 15px;">
+                    <p style="font-style: italic; font-size: 12px;"><strong>Reply by</strong> <?php echo $this->getUserName($reply->getCustomerId(),$reply->getAdminId()); ?>, <?php echo $reply->getCreatedAt(); ?></p>
+                    <p><?php echo $this->escapeHtml($reply->getMessage()); ?></p>
+                </div>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php else: ?>
+There is no replies.
+<?php endif; ?>

@@ -1,0 +1,59 @@
+<?php
+
+?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php $_tickets = $this->getTickets(); ?>
+<div class="page-title" style="position: relative">
+    <h1><?php echo $this->__('My Tickets') ?></h1>
+    <button type="button" title="Add New ticket" class="button" onclick="window.location='<?php echo $this->getUrl('inchooticket/ticket/new/') ?>';" style="position: absolute;right: 0;top: 0;"><span><span>Add New ticket</span></span></button>
+</div>
+<?php echo $this->getChildHtml('info');?>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($_tickets->getSize()): ?>
+    <table class="data-table orders" id="my-orders-table">
+        <col width="1" />
+        <col width="1" />
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th class="ticket"><?php echo $this->__('TICKET #') ?></th>
+                <th class="date"><?php echo $this->__('CREATED') ?></th>
+                <th class="subject"><?php echo $this->__('SUBJECT') ?></th>
+                <th class="answers"><span class="nobr"><?php echo $this->__('ANSWERS') ?></span></th>
+                <th class="status"><span class="nobr"><?php echo $this->__('STATUS') ?></span></th>
+                <th class="view">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($_tickets as $_ticket) : ?>
+                <tr>
+                    <td class="ticket"><?php echo $_ticket->getTicketId() ?></td>
+                    <td class="date"><span class="nobr"><?php echo $_ticket->getCreatedAt() ?></span></td>
+                    <td class="subject"><?php echo $this->escapeHtml(substr($_ticket->getSubject(),0,50)) ?></td>
+                    <td class="answers"><?php echo $_ticket->getReplies(); ?></td>
+                    <td class="status"><em><?php echo $_ticket->getStatus() ?></em></td>
+                    <td class="a-center view">
+                        <span class="nobr">
+                            <a href="<?php echo $this->getUrl('inchooticket/ticket/view/',array('id' => $_ticket->getTicketId())); ?>">View & Reply</a>
+                            <span class="separator">|</span>
+                            <?php if($_ticket->getStatus() === 'open'): ?>
+                                <a href="<?php echo $this->getUrl('inchooticket/ticket/close/',array('id' => $_ticket->getTicketId())); ?>">Close</a>
+                            <?php else: ?>
+                                <a href="<?php echo $this->getUrl('inchooticket/ticket/open/',array('id' => $_ticket->getTicketId())); ?>">Open</a>
+                            <?php endif; ?>
+                        </span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        decorateTable('my-orders-table');
+    </script>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('You don\'t have tickets!'); ?></p>
+<?php endif ?>

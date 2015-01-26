@@ -1,0 +1,35 @@
+<?php
+/*
+ * Form for new ticket
+ */
+?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<form action="<?php echo $this->getUrl('inchooticket/ticket/new/') ?>" method="post" autocomplete="off" id="form-validate" class="scaffold-form" enctype="multipart/form-data">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo $this->__('Ticket informations:') ?></h2>
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <ul class="form-list">
+            <li>
+                <label for="subject" class="required"><em>*</em><?php echo $this->__('Subject') ?></label>
+                <div class="input-box">
+                    <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="subject" id="subject" value="<?php echo $this->getInputValue('subject'); ?>" maxlength="250" title="<?php echo $this->__('Ticket subject') ?>" class="input-text required-entry validate-length minimum-length-1 maximum-length-250" />
+                </div>
+            </li>
+            <li>
+                <label for="subject" class="required"><em>*</em><?php echo $this->__('Message') ?></label>
+                <div class="input-box">
+                    <textarea name="message" id="message" class="required-entry input-text validate-length minimum-length-1 maximum-length-5000" maxlength="5000" cols="5" rows="5"><?php echo $this->getInputValue('message'); ?></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->getUrl('inchooticket/ticket/') ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <button type="submit" title="<?php echo $this->__('Create new ticket') ?>" class="button"><span><span><?php echo $this->__('Create new ticket') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

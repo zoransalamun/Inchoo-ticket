@@ -1,0 +1,24 @@
+<?php
+/*
+ * Ticket data display getTicket()
+ */
+?>
+<div class="box-info">
+    <div class="box-head">
+        <h2><?php echo $this->__('Ticket information'); ?></h2>
+    </div>
+    <div class="col1-set">
+        <div class="col-1">
+            <div class="box">
+                <div class="product-options-bottom">
+                    <p> Ticked number: <?php echo $this->getTicket()->getTicketId(); ?><br>
+                        Created by: <?php echo $this->getCustomerName(); ?><br>
+                        Created at: <?php echo $this->getTicket()->getCreatedAt(); ?><br>
+                        Status: <?php echo $this->getTicket()->getStatus(); ?></p>
+                    <p><strong>Subject:</strong> <?php echo $this->escapeHtml($this->getTicket()->getSubject()); ?></p>
+                    <p><strong>Message:</strong> <?php echo $this->escapeHtml($this->getTicket()->getMessage()); ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

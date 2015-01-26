@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+Inchoo Ticket module
+-->
+<config>
+    <modules>
+        <Inchoo_Ticket>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Inchoo_Ticket>
+    </modules>
+</config>

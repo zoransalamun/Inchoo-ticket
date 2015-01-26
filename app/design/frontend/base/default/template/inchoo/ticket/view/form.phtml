@@ -1,0 +1,28 @@
+<?php
+/*
+ * Form for new ticket
+ */
+?>
+<form action="<?php echo $this->getUrl('inchooticket/ticket/reply/') ?>" method="post" autocomplete="off" id="form-validate" class="scaffold-form" enctype="multipart/form-data">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo $this->__('Reply on ticket:') ?></h2>
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <input type="hidden" name="ticket-id" id="ticket-id" value="<?php echo $this->getTicketId(); ?>">
+        <ul class="form-list">
+            <li>
+                <label for="subject" class="required"><em>*</em><?php echo $this->__('Message') ?></label>
+                <div class="input-box">
+                    <textarea name="message" id="message" class="required-entry input-text validate-length minimum-length-1 maximum-length-5000" maxlength="5000" cols="5" rows="5"><?php echo $this->getInputValue('message'); ?></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <button type="submit" title="<?php echo $this->__('Reply on ticket') ?>" class="button"><span><span><?php echo $this->__('Reply') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

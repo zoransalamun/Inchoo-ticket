@@ -1,0 +1,59 @@
+<?php
+/*
+ * My Last Five tickets
+ */
+?>
+<div class="box-account box-recent">
+    <div class="box-head">
+        <h2><?php echo $this->__('My newest submited tickets'); ?></h2>
+        <a href="<?php echo $this->getUrl('inchooticket/ticket/list/') ?>">View All</a>
+    </div>
+    <table class="data-table orders" id="my-tickets-table">
+        <colgroup>
+            <col width="1">
+            <col width="1">
+            <col>
+            <col width="1">
+            <col width="1">
+            <col width="1">
+        </colgroup>
+        <thead>
+            <tr class="first last">
+                <th class="number">Ticket #</th>
+                <th class="date">Created</th>
+                <th class="subject">Subject</th>
+                <th class="answers">Answers</th>
+                <th class="status">Status</th>
+                <th class="view">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if($this->getLastTickets()->count()>0) : ?>
+                <?php foreach($this->getLastTickets() as $_ticket): ?>
+                <tr>
+                    <td class="number"><?php echo $_ticket->getTicketId(); ?></td>
+                    <td class="date"><span class="nobr"><?php echo $_ticket->getCreatedAt(); ?></span></td>
+                    <td class="subject"><span class="nobr"><?php echo substr($_ticket->getSubject(),0,50); ?></span></td>
+                    <td class="answers"><?php echo $_ticket->getReplies(); ?></td>
+                    <td class="status"><em><?php echo $_ticket->getStatus(); ?></em></td>
+                    <td class="a-center view last">
+                        <span class="nobr">
+                            <a href="<?php echo $this->getUrl('inchooticket/ticket/view/',array('id' => $_ticket->getTicketId())); ?>">View & Reply</a>
+                            <span class="separator">|</span>
+                            <?php if($_ticket->getStatus() === 'open'): ?>
+                                <a href="<?php echo $this->getUrl('inchooticket/ticket/close/',array('id' => $_ticket->getTicketId())); ?>">Close</a>
+                            <?php else: ?>
+                                <a href="<?php echo $this->getUrl('inchooticket/ticket/open/',array('id' => $_ticket->getTicketId())); ?>">Open</a>
+                            <?php endif; ?>
+                        </span>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            <?php else : ?>
+            <tr><td colspan="6"><?php echo $this->__('You don\'t have submited tickets!'); ?></td></tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('my-tickets-table')</script>
+</div>
+<button type="button" title="Add New ticket" class="button" onclick="window.location='<?php echo $this->getUrl('inchooticket/ticket/new/') ?>';"><span><span>Add New ticket</span></span></button>

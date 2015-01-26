@@ -1,0 +1,23 @@
+<?php
+/*
+ *  Sidebar for inchoo ticket
+ */
+?>
+<div class="block block-account">
+    <div class="block-title">
+        <strong><span>Inchoo Tickets</span></strong>
+    </div>
+    <div class="block-content">
+        <?php if(!empty($this->getMenuItems())): ?>
+            <ul>
+            <?php foreach($this->getMenuItems() as $menuItem): ?>
+                <li <?php if($this->isMenuItemActive($menuItem['url'])) echo 'class="current"' ?>>
+                    <a href="<?php echo $this->getUrl($menuItem['url']); ?>" <?php if($this->isMenuItemActive($menuItem['url'])) echo 'style="font-weight: 400; color: #3399cc;"' ?>><?php echo $menuItem['name']; ?></a>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+        No menu items
+        <?php endif; ?>
+    </div>
+</div>
