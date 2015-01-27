@@ -12,4 +12,15 @@ class Inchoo_Ticket_Model_Resource_Ticket
     {
         $this->_init('inchoo_ticket/ticket', 'ticket_id');
     }
+
+    /*
+     * Before save set created at
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+        //Check if object is new
+        if($object->isObjectNew()) {
+            $object->setCreatedAt(Varien_Date::now());
+        }
+    }
 }

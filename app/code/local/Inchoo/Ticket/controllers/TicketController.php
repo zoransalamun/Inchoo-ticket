@@ -4,6 +4,8 @@
  */
 class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
 {
+    const FLAG_NO_DISPATCH              = 'no-dispatch';
+
     /*
      * Get customer session
      */
@@ -12,21 +14,16 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
         return Mage::getSingleton('customer/session');
     }
 
-    /*
-     * Check if user is logged in
-     */
-    protected function onlyLoggedInUser()
+    public function preDispatch()
     {
-        /*
-         * User must be logged in
-         *  -if not, redirect to login page
-         */
+        parent::preDispatch();
+
         if (!$this->_getSession()->isLoggedIn()) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->_redirect('customer/account/login/');
             return;
         }
     }
-
 
     /*
      * Default action
@@ -35,7 +32,7 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
     public function indexAction()
     {
         //User must be logged in
-        $this->onlyLoggedInUser();
+        //$this->onlyLoggedInUser();
 
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
@@ -48,7 +45,7 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
     public function newAction()
     {
         //User must be logged in
-        $this->onlyLoggedInUser();
+        //$this->onlyLoggedInUser();
         $this->loadLayout();
         $newTicketId = 0;
 
@@ -102,7 +99,7 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
                     /*
                      * Send email to admin
                      */
-                    Mage::helper('inchoo_ticket')->emailNotification($newTicket,$currentUser);
+                    $newTicket->emailNotification($newTicket,$currentUser);
 
                 } else {
                     Mage::getSingleton('customer/session')->addError('Error with saving ticket!');
@@ -131,7 +128,7 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
     public function replyAction()
     {
         //User must be logged in
-        $this->onlyLoggedInUser();
+        //$this->onlyLoggedInUser();
         $redirectWhere = 'inchooticket/ticket/';
 
         /*
@@ -205,11 +202,6 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
                         $newReply->save();
 
                         if ($newReply->getReplyId() > 0) {
-                            /*
-                             * Increment replies in ticket table
-                             */
-                            $ticket->setReplies($ticket->getReplies()+1);
-                            $ticket->save();
                             Mage::getSingleton('customer/session')->addSuccess('You have replied on ticket');
                         } else {
                             Mage::getSingleton('customer/session')->addError('Reply is not saved! Unknown error :/');
@@ -232,7 +224,7 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
     public function closeAction()
     {
         //User must be logged in
-        $this->onlyLoggedInUser();
+        //$this->onlyLoggedInUser();
 
         $ticketId = $this->getRequest()->getParam('id');
         if(!$ticketId) {
@@ -285,7 +277,7 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
     public function openAction()
     {
         //User must be logged in
-        $this->onlyLoggedInUser();
+        //$this->onlyLoggedInUser();
 
         $ticketId = $this->getRequest()->getParam('id');
         if(!$ticketId) {
@@ -342,7 +334,7 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
     public function viewAction()
     {
         //User must be logged in
-        $this->onlyLoggedInUser();
+        //$this->onlyLoggedInUser();
 
         /*
          * Check if id is in get param
@@ -390,6 +382,9 @@ class Inchoo_Ticket_TicketController extends Mage_Core_Controller_Front_Action
      */
     public function listAction()
     {
+        //User must be logged in
+        //$this->onlyLoggedInUser();
+
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
 

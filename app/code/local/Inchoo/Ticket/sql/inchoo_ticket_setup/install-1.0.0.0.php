@@ -4,7 +4,6 @@
  */
 $installer = $this;
 $installer->startSetup();
-
 /*
  * Create table for tickets
  */

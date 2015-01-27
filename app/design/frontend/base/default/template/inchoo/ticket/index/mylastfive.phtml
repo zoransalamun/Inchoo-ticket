@@ -33,7 +33,7 @@
                 <tr>
                     <td class="number"><?php echo $_ticket->getTicketId(); ?></td>
                     <td class="date"><span class="nobr"><?php echo $_ticket->getCreatedAt(); ?></span></td>
-                    <td class="subject"><span class="nobr"><?php echo substr($_ticket->getSubject(),0,50); ?></span></td>
+                    <td class="subject"><span class="nobr"><?php echo $this->escapeHtml(substr($_ticket->getSubject(),0,50)); ?></span></td>
                     <td class="answers"><?php echo $_ticket->getReplies(); ?></td>
                     <td class="status"><em><?php echo $_ticket->getStatus(); ?></em></td>
                     <td class="a-center view last">

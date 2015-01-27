@@ -248,11 +248,6 @@ class Inchoo_Ticket_adminhtml_TicketController
                 $newReply->save();
 
                 if ($newReply->getReplyId() > 0) {
-                    /*
-                     * Increment replies in ticket table and save
-                     */
-                    $ticket->setReplies($ticket->getReplies() + 1);
-                    $ticket->save();
                     $this->_getSession()->addSuccess('You have replied on ticket');
                 } else {
                     $this->_getSession()->addError('Reply is not saved! Unknown error :/');
